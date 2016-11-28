@@ -16,6 +16,7 @@ module SpreeMultiDomain
 
       Spree::Order.whitelisted_ransackable_attributes << 'store_id'
       Spree::Admin::OrdersController.include(SpreeMultiDomain::StoreAwareAdminOrders)
+      Spree::Admin::PromotionsController.prepend(SpreeMultiDomain::PromotionsByStoreAdmin)
     end
 
     config.to_prepare &method(:activate).to_proc
