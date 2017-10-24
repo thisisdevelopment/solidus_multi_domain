@@ -1,16 +1,16 @@
 module SpreeMultiDomain
   module MultiDomainHelpers
-    def self.included(receiver)
-      receiver.send :helper, 'spree/products'
-      receiver.send :helper, 'spree/taxons'
+    extend ActiveSupport::Concern
 
-      receiver.send :before_filter, :add_current_store_id_to_params
-      receiver.send :helper_method, :current_store
-      receiver.send :helper_method, :current_tracker
-    end
+    include Spree::Core::ControllerHelpers::Common #layout :get_layout
+    include Spree::Core::ControllerHelpers::Store #current_store
 
-    def current_tracker
-      @current_tracker ||= Spree::Tracker.current(store_key)
+    included do
+      helper 'spree/products'
+      helper 'spree/taxons'
+
+      before_action :add_current_store_id_to_params
+      helper_method :current_store
     end
 
     def get_taxonomies
@@ -21,11 +21,6 @@ module SpreeMultiDomain
 
     def add_current_store_id_to_params
       params[:current_store_id] = current_store.try(:id)
-    end
-
-    private
-    def store_key
-      request.headers['HTTP_SPREE_STORE'] || request.env['SERVER_NAME']
     end
   end
 end

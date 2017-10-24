@@ -5,6 +5,8 @@ This extension allows a single Solidus instance to have several customer facing
 stores, with a single shared backend administration system (i.e. multi-store,
 single-vendor).
 
+[![Build Status](https://travis-ci.org/solidusio/solidus_multi_domain.svg?branch=master)](https://travis-ci.org/solidusio/solidus_multi_domain)
+
 Current features:
 ------------------
 
@@ -36,7 +38,7 @@ Current features:
 
 4. All orders are associated with the store / domain that they were placed on.
 
-5. Google analytics trackers can be associated with a store.
+Looking for additional information? Checkout out the [wiki](https://github.com/solidusio/solidus_multi_domain/wiki).
 
 Install Instructions
 --------------------
@@ -55,6 +57,21 @@ rails g solidus_multi_domain:install
 ```
 
 You should see 'Stores & Domains' in Configuration tab of Spree Admin.
+
+Development
+-------
+
+To see if your stores indeed do point to the correct and unique domains, start your server with
+```shell
+rails s -p 3000 -b lvh.me
+```
+and give a store a domain like http://store1.lvh.me:3000/.
+
+If you'd like access to Solidus factories for your own tests that work well
+with this extension, add the following to your `spec_helper`:
+```ruby
+require "spree_multi_domain/testing_support/factory_overrides"
+```
 
 Authorization
 -------------
