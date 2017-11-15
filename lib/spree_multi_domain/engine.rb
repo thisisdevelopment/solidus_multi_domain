@@ -1,5 +1,3 @@
-require 'spree/app_configuration'
-
 module SpreeMultiDomain
   class Engine < Rails::Engine
     engine_name 'solidus_multi_domain'
