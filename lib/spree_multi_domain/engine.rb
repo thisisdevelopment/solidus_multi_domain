@@ -14,17 +14,14 @@ module SpreeMultiDomain
 
         Spree::Config.searcher_class = Spree::Search::MultiDomain
         ApplicationController.send :include, SpreeMultiDomain::MultiDomainHelpers
+        Spree::Order.whitelisted_ransackable_attributes << 'store_id'
+        Spree::Admin::OrdersController.include(SpreeMultiDomain::StoreAwareAdminOrders)
+        Spree::Admin::PromotionsController.prepend(SpreeMultiDomain::PromotionsByStoreAdmin)
       end
 
       def admin_available?
         const_defined?('Spree::Backend::Engine')
       end
-
-      ApplicationController.send :include, SpreeMultiDomain::MultiDomainHelpers
-
-      Spree::Order.whitelisted_ransackable_attributes << 'store_id'
-      Spree::Admin::OrdersController.include(SpreeMultiDomain::StoreAwareAdminOrders)
-      Spree::Admin::PromotionsController.prepend(SpreeMultiDomain::PromotionsByStoreAdmin)
 
       def api_available?
         const_defined?('Spree::Api::Engine')
