@@ -20,7 +20,6 @@ module SpreeMultiDomain
         const_defined?('Spree::Backend::Engine')
       end
 
-      Spree::Config.searcher_class = Spree::Search::MultiDomain
       ApplicationController.send :include, SpreeMultiDomain::MultiDomainHelpers
 
       Spree::Order.whitelisted_ransackable_attributes << 'store_id'
