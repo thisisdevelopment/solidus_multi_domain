@@ -2,7 +2,7 @@ module SpreeMultiDomain::StoreAwareAdminOrders
   extend ActiveSupport::Concern
 
   included do
-    before_filter :merge_store_id_query, only: :index
+    before_action :merge_store_id_query, only: :index
   end
 
   private

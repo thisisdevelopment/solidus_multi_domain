@@ -2,7 +2,7 @@ module SpreeMultiDomain::PromotionsByStoreAdmin
   extend ActiveSupport::Concern
 
   def self.prepended(base)
-    base.before_filter :assign_store_id, only: [:create, :update]
+    base.before_action :assign_store_id, only: [:create, :update]
     base.prepend(ClassMethods)
   end
 
