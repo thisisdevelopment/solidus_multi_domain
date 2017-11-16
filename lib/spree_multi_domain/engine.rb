@@ -42,9 +42,7 @@ module SpreeMultiDomain
     initializer "current order decoration" do |app|
       require 'spree/core/controller_helpers/order'
 
-      alias :current_order :current_order_with_multi_domain
-
-      ::Spree::Core::ControllerHelpers::Order.module_eval do
+      ::Spree::Core::ControllerHelpers::Order.prepend(Module.new do
         def current_order_with_multi_domain(options = {})
           options[:create_order_if_necessary] ||= false
           current_order_without_multi_domain(options)
