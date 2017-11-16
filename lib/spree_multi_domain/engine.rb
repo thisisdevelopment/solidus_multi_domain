@@ -53,7 +53,7 @@ module SpreeMultiDomain
 
           @current_order
         end
-      end
+      end)
     end
 
     initializer 'spree.promo.register.promotions.rules' do |app|
