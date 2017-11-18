@@ -26,7 +26,7 @@ module SpreeMultiDomain
     end
 
     def api_request?
-      return true if controller_name.include?('::Api::')
+      return true if controller_name.include?('Api::')
     end
   end
 end
